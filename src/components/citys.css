@@ -1,0 +1,16 @@
+.cityImg {
+  height: 200px;
+  width: 200px;
+}
+
+.tripInfo__containe {
+  border: 1px lightgray solid;
+  border-top: none;
+  width: 200px;
+  margin: 0;
+}
+
+.city__container {
+  display: flex;
+  justify-content: center;
+}
