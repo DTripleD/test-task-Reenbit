@@ -1,9 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import Citys from "./components/citys";
-import AddTripButton from "./components/addtripButton";
 import Modal from "./components/modal/modal";
 import Form from "./components/form/form";
+import { nanoid } from "nanoid";
+import staticData from "../../src/Data/data.json";
+import CityList from "./components/cityList/CityList";
+import WeekWeather from "./components/weekWeather/WeekWeather";
 
 // API for getting forecast from - to for the city
 // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelin
@@ -15,29 +17,43 @@ import Form from "./components/form/form";
 // e/[city]/today?unitGroup=metric&include=days&key=YOUR_API_KEY&contentType=
 // json
 
-const API_KEY = "54QNJPLCDHSMZMYJ75EUK7772";
-
 function App() {
   const [cityName, setCityName] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState({});
+
+  const [selectedCity, setSelectedCity] = useState({});
 
   const [modalActive, setModalActive] = useState(false);
 
-  const [trips, setTrips] = useState([]);
+  const [trips, setTrips] = useState([
+    {
+      name: "Athens",
+      imageUrl:
+        "https://res.cloudinary.com/dj6mkr2e6/image/upload/v1690896299/athens_vmn2zj.webp",
+      id: nanoid(),
+      startTime: 1668545454550,
+      endTime: 1685445855450,
+    },
+  ]);
 
   const [startDate, setStartDate] = useState("");
 
   const [endDate, setEndDate] = useState("");
 
-  const addCity = (selectedCity, startDate, endDate) => {
+  const addCity = (name, startDate, endDate) => {
     setStartDate(startDate);
     setEndDate(endDate);
-    fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${selectedCity}/${startDate}/${endDate}?unitGroup=metric&include=days&key=${API_KEY}&contentType=json`
-    )
-      .then((res) => res.json())
-      .then((data) => setTrips((prev) => [...prev, data]))
-      .catch((error) => console.log(error));
+
+    setTrips((prev) => [
+      ...prev,
+      {
+        name,
+        imageUrl: staticData.find((c) => c.name === name).imageUrl,
+        id: nanoid(),
+        startTime: new Date(startDate).getTime(),
+        endTime: new Date(endDate).getTime(),
+      },
+    ]);
   };
 
   // useEffect(() => {
@@ -68,13 +84,14 @@ function App() {
         <button type="submit">Click</button>
       </form>
 
-      <Citys
+      <CityList
         trips={trips}
-        startDate={startDate}
-        endDate={endDate}
-        city={cityName}
+        setModal={setModalActive}
+        setSelectedCity={setSelectedCity}
       />
-      <AddTripButton setModal={setModalActive} />
+
+      <WeekWeather selectedCity={selectedCity} />
+
       <Modal active={modalActive} setActive={setModalActive}>
         <Form setActive={setModalActive} addCity={addCity} />
       </Modal>

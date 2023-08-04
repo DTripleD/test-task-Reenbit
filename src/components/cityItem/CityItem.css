@@ -10,7 +10,8 @@
   margin: 0;
 }
 
-.city__container {
+li {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
 }

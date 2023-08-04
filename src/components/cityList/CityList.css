@@ -1,0 +1,14 @@
+.city__container {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style: none;
+  gap: 50px;
+}
+
+.list__wrapper {
+  display: flex;
+  gap: 50px;
+}

@@ -1,26 +1,31 @@
 import PropTypes from "prop-types";
 import "./form.css";
 import { useState } from "react";
+import data from "../../data/data.json";
 
 const Form = ({ setActive, addCity }) => {
   const [city, setCity] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (startDate > endDate) {
+      return alert("Select correct data");
+    }
+
+    addCity(city, startDate, endDate);
+
+    setCity("");
+    setStartDate("");
+    setEndDate("");
+    setActive(false);
+  };
+
   return (
     <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          addCity(city, startDate, endDate);
-
-          setCity("");
-          setStartDate("");
-          setEndDate("");
-          setActive(false);
-        }}
-      >
+      <form onSubmit={onFormSubmit}>
         <div className="modal__header">
           <h2>Create trip</h2>
           <button type="button" onClick={() => setActive(false)}>
@@ -43,11 +48,9 @@ const Form = ({ setActive, addCity }) => {
               required
             />
             <datalist id="cities">
-              <option value="Naples" />
-              <option value="London" />
-              <option value="Berlin" />
-              <option value="New York" />
-              <option value="Frattamaggiore" />
+              {data.map((m) => (
+                <option value={m.name} key={m.id} />
+              ))}
             </datalist>
           </label>
           <label>
