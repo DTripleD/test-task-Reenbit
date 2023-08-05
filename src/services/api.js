@@ -1,4 +1,6 @@
-const API_KEY = "54QNJPLCDHSMZMYJ75EUK7772";
+// const API_KEY = "54QNJPLCDHSMZMYJ75EUK7772";
+
+const API_KEY = "XLMNP93YP7UYUX23UZFL3JT2E";
 
 export const getWeekWeather = (city, startDate, endDate) => {
   return fetch(

@@ -3,12 +3,26 @@ import CityItem from "../cityItem/CityItem";
 
 import "./CityList.css";
 import AddTripButton from "../addTripButton/addtripButton";
+import { useSelector } from "react-redux";
+import { getFilter, getTrips } from "../../redux/selectors";
 
-const CityList = ({ trips, setModal, setSelectedCity }) => {
+const CityList = ({ setModal, setSelectedCity }) => {
+  const trips = useSelector(getTrips);
+
+  const statusFilter = useSelector(getFilter);
+
+  const getFilteredTrips = () => {
+    return trips.filter((trip) => {
+      return trip.name.toLowerCase().includes(statusFilter.toLowerCase());
+    });
+  };
+
+  const filterElements = getFilteredTrips();
+
   return (
     <div className="list__wrapper">
       <ul className="city__container">
-        {trips.map((trip) => (
+        {filterElements.map((trip) => (
           <CityItem
             key={trip.id}
             trip={trip}
@@ -24,7 +38,6 @@ const CityList = ({ trips, setModal, setSelectedCity }) => {
 export default CityList;
 
 CityList.propTypes = {
-  trips: PropTypes.array.isRequired,
   setModal: PropTypes.func.isRequired,
   setSelectedCity: PropTypes.func.isRequired,
 };

@@ -1,0 +1,33 @@
+.today__wrapper {
+  background-image: url("../../img/background/backgroundImage.jpg");
+  height: auto;
+  background-size: cover;
+  min-width: 30%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.time__list {
+  display: flex;
+}
+
+.temp {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.time {
+  font-weight: bold;
+}
+
+.time__text {
+}
+
+.temp__current {
+  font-size: 40px;
+}

@@ -1,12 +1,22 @@
 import PropTypes from "prop-types";
 import "./form.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import data from "../../data/data.json";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/tripsSlice";
+import { formatRequestDate } from "../../helpers/formatDate";
 
-const Form = ({ setActive, addCity }) => {
+const Form = ({ setActive }) => {
   const [city, setCity] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    setCurrentTime(() => formatRequestDate(currentTime));
+  }, [currentTime]);
+
+  const dispatch = useDispatch();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +25,11 @@ const Form = ({ setActive, addCity }) => {
       return alert("Select correct data");
     }
 
-    addCity(city, startDate, endDate);
+    if (startDate <= currentTime) {
+      return alert("Please choose a date in the future");
+    }
+
+    dispatch(addContact({ city, startDate, endDate }));
 
     setCity("");
     setStartDate("");
@@ -92,5 +106,4 @@ export default Form;
 
 Form.propTypes = {
   setActive: PropTypes.func.isRequired,
-  addCity: PropTypes.func.isRequired,
 };
