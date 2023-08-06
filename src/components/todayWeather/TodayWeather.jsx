@@ -1,12 +1,13 @@
 import "./TodayWeather.css";
-import fog from "../../img/icons/rain.png";
+
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { getTodayWeather } from "../../services/api";
 import getWeekDay from "../../helpers/getWeekDays";
+import WeatherIcon from "../../img/WeatherIcon";
 
 const TodayWeather = ({ selectedCity }) => {
-  const [temp, setTemp] = useState(null);
+  const [todayWeather, setTodayWeather] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   function convertMs(time) {
@@ -26,10 +27,11 @@ const TodayWeather = ({ selectedCity }) => {
   }
 
   useEffect(() => {
-    getTodayWeather(selectedCity.name).then((data) =>
-      setTemp(data.days[0].temp)
-    );
-  }, [selectedCity.name, setTemp]);
+    getTodayWeather(selectedCity.name).then((data) => {
+      console.log(data.days[0]);
+      setTodayWeather(data.days[0]);
+    });
+  }, [selectedCity, setTodayWeather]);
 
   useEffect(() => {
     setInterval(() => {
@@ -47,33 +49,39 @@ const TodayWeather = ({ selectedCity }) => {
 
   return (
     <div className="today__wrapper">
-      <h2>{getWeekDay(currentTime)}</h2>
-      <div className="temp">
-        <img src={fog} alt="A" width="50" height="50" />
-        <p className="temp__current">{Math.round(temp)}°C</p>
-      </div>
-      <p>{selectedCity.name}</p>
+      {todayWeather && (
+        <>
+          <h2>{getWeekDay(currentTime)}</h2>
+          <div className="temp">
+            <WeatherIcon code={todayWeather?.icon} color="white" />
+            <p className="temp__current">
+              {todayWeather ? Math.round(todayWeather.temp) : 0}°C
+            </p>
+          </div>
+          <p>{selectedCity.name}</p>
 
-      <div>
-        <ul className="time__list">
-          <li>
-            <span className="time">{timee.days}</span>
-            <p className="time__text">days</p>
-          </li>
-          <li>
-            <span className="time">{timee.hours}</span>
-            <p className="time__text">hours</p>
-          </li>
-          <li>
-            <span className="time">{timee.minutes}</span>
-            <p className="time__text">minutes</p>
-          </li>
-          <li>
-            <span className="time">{timee.seconds}</span>
-            <p className="time__text">seconds</p>
-          </li>
-        </ul>
-      </div>
+          <div>
+            <ul className="time__list">
+              <li>
+                <span className="time">{timee.days}</span>
+                <p className="time__text">days</p>
+              </li>
+              <li>
+                <span className="time">{timee.hours}</span>
+                <p className="time__text">hours</p>
+              </li>
+              <li>
+                <span className="time">{timee.minutes}</span>
+                <p className="time__text">minutes</p>
+              </li>
+              <li>
+                <span className="time">{timee.seconds}</span>
+                <p className="time__text">seconds</p>
+              </li>
+            </ul>
+          </div>
+        </>
+      )}
     </div>
   );
 };

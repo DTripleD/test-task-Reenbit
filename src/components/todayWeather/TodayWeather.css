@@ -1,5 +1,5 @@
 .today__wrapper {
-  background-image: url("../../img/background/backgroundImage.jpg");
+  background-image: url("../../img/background/bgimage.jpg");
   height: auto;
   background-size: cover;
   min-width: 30%;
@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 .time__list {

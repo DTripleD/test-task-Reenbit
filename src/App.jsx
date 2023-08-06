@@ -11,7 +11,7 @@ import FilterForm from "./components/filterForm/FilterForm";
 
 function App() {
   const [selectedCity, setSelectedCity] = useState({
-    city: "Athens",
+    name: "Athens",
     imageUrl:
       "https://res.cloudinary.com/dj6mkr2e6/image/upload/v1690896299/athens_vmn2zj.webp",
     id: nanoid(),
