@@ -28,7 +28,6 @@ const TodayWeather = ({ selectedCity }) => {
 
   useEffect(() => {
     getTodayWeather(selectedCity.name).then((data) => {
-      console.log(data.days[0]);
       setTodayWeather(data.days[0]);
     });
   }, [selectedCity, setTodayWeather]);

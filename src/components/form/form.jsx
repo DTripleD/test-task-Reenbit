@@ -29,6 +29,16 @@ const Form = ({ setActive }) => {
       return alert("Please choose a date in the future");
     }
 
+    const daysMaxStart =
+      new Date(startDate).getTime() - new Date(currentTime).getTime();
+
+    const daysMaxEnd =
+      new Date(endDate).getTime() - new Date(currentTime).getTime();
+
+    if (daysMaxStart >= 1296000000 || daysMaxEnd >= 1296000000) {
+      return alert("The start and end date should be within the next 15 days");
+    }
+
     dispatch(addContact({ city, startDate, endDate }));
 
     setCity("");

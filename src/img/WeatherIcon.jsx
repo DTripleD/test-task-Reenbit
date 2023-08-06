@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import ReactAnimatedWeather from "react-animated-weather";
 
 const WeatherIcon = (props) => {
-  console.log(props);
   const codeMapping = {
     snow: "SNOW",
     "snow-showers-day": "SNOW",

@@ -10,8 +10,6 @@ import WeatherIcon from "../../img/WeatherIcon";
 const WeekWeather = ({ selectedCity }) => {
   const [weekInfo, setWeekInfo] = useState(null);
 
-  console.log(weekInfo);
-
   useEffect(() => {
     getWeekWeather(
       selectedCity.name,
@@ -21,10 +19,6 @@ const WeekWeather = ({ selectedCity }) => {
       .then((data) => setWeekInfo(data.days))
       .catch((e) => console.log(e));
   }, [selectedCity]);
-
-  if (weekInfo) {
-    console.log(weekInfo[0].icon);
-  }
 
   return (
     <>

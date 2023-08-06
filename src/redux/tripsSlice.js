@@ -2,8 +2,6 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 import staticData from "../data/data.json";
 
-console.log(staticData[0].imageUrl);
-
 const initialState = [
   {
     name: "Athens",
@@ -24,7 +22,6 @@ const tripsSlice = createSlice({
         return [...state, payload];
       },
       prepare: (data) => {
-        console.log(data);
         return {
           payload: {
             ...data,

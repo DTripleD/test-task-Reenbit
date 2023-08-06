@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const CityItem = ({ trip, setSelectedCity }) => {
   return (
     <>
-      <li
+      <li className="city__item"
         onClick={() =>
           setSelectedCity({
             name: trip.name,

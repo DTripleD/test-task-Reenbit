@@ -19,10 +19,14 @@ const CityList = ({ setModal, setSelectedCity }) => {
 
   const filterElements = getFilteredTrips();
 
+  const sortedCitysByDeparture = filterElements.sort(
+    (a, b) => a.startTime - b.startTime
+  );
+
   return (
     <div className="list__wrapper">
       <ul className="city__container">
-        {filterElements.map((trip) => (
+        {sortedCitysByDeparture.map((trip) => (
           <CityItem
             key={trip.id}
             trip={trip}
