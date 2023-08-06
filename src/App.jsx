@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="app__wrapper">
-      <div>
+      <div className="main__screen">
         <h1>
           <span className="logo__text">Weather</span> Forecast
         </h1>

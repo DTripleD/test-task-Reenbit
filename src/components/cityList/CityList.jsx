@@ -33,10 +33,8 @@ const CityList = ({ setModal, setSelectedCity }) => {
             setSelectedCity={setSelectedCity}
           />
         ))}
-        <li>
-          <AddTripButton setModal={setModal} />
-        </li>
       </ul>
+      <AddTripButton setModal={setModal} />
     </div>
   );
 };

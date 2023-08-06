@@ -6,7 +6,10 @@ import PropTypes from "prop-types";
 const CityItem = ({ trip, setSelectedCity }) => {
   return (
     <>
-      <li className="city__item"
+      <li
+        className="city__item"
+        onFocus={() => console.log("foc")}
+        onBlur={() => console.log("bl")}
         onClick={() =>
           setSelectedCity({
             name: trip.name,
@@ -17,7 +20,7 @@ const CityItem = ({ trip, setSelectedCity }) => {
       >
         <img src={trip.imageUrl} alt="City" className="cityImg" />
 
-        <div className="tripInfo__containe">
+        <div className="tripInfo__container">
           <h2>{trip.name}</h2>
           <p>
             {formatRequestDate(trip.startTime, "toPoints")} -
