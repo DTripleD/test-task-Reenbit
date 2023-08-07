@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setFilter } from "../../redux/filterSlice";
+import { AiOutlineSearch } from "react-icons/ai";
+
 import "./FilterForm.css";
 
 const FilterForm = () => {
@@ -14,12 +16,14 @@ const FilterForm = () => {
   };
 
   return (
-    <form>
+    <form className="filter__form">
       <input
         type="text"
         placeholder="Search your trip"
         onChange={updateFilter}
+        className="filter__input"
       />
+      <AiOutlineSearch className="filter__icon" size="24" />
     </form>
   );
 };

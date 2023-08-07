@@ -1,39 +1,78 @@
-import PropTypes from "prop-types";
-import CityItem from "../cityItem/CityItem";
-
+import { useEffect, useRef, useState } from "react";
+import cn from "classnames";
+import debounce from "lodash.debounce";
 import "./CityList.css";
 import AddTripButton from "../addTripButton/addtripButton";
-import { useSelector } from "react-redux";
-import { getFilter, getTrips } from "../../redux/selectors";
+import PropTypes from "prop-types";
 
-const CityList = ({ setModal, setSelectedCity }) => {
-  const trips = useSelector(getTrips);
+const CityList = ({ children, setModal }) => {
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  const statusFilter = useSelector(getFilter);
+  const containerRef = useRef(null);
 
-  const getFilteredTrips = () => {
-    return trips.filter((trip) => {
-      return trip.name.toLowerCase().includes(statusFilter.toLowerCase());
-    });
+  const checkForScrollPosition = () => {
+    const { current } = containerRef;
+    if (current) {
+      const { scrollLeft, scrollWidth, clientWidth } = current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft !== scrollWidth - clientWidth);
+    }
   };
 
-  const filterElements = getFilteredTrips();
+  const debounceCheckForScrollPosition = debounce(checkForScrollPosition, 200);
 
-  const sortedCitysByDeparture = filterElements.sort(
-    (a, b) => a.startTime - b.startTime
-  );
+  const scrollContainerBy = (distance) =>
+    containerRef.current?.scrollBy({ left: distance, behavior: "smooth" });
+
+  useEffect(() => {
+    const { current } = containerRef;
+    checkForScrollPosition();
+    current?.addEventListener("scroll", debounceCheckForScrollPosition);
+
+    return () => {
+      current?.removeEventListener("scroll", debounceCheckForScrollPosition);
+      debounceCheckForScrollPosition.cancel();
+    };
+  }, [debounceCheckForScrollPosition]);
 
   return (
-    <div className="list__wrapper">
-      <ul className="city__container">
-        {sortedCitysByDeparture.map((trip) => (
-          <CityItem
-            key={trip.id}
-            trip={trip}
-            setSelectedCity={setSelectedCity}
-          />
-        ))}
-      </ul>
+    <div className="wrapper">
+      <div className="scrollContainer">
+        <ul className="list" ref={containerRef}>
+          {children}
+        </ul>
+        <button
+          type="button"
+          disabled={!canScrollLeft}
+          onClick={() => scrollContainerBy(-400)}
+          className={cn("button", "buttonLeft", {
+            "button--hidden": !canScrollLeft,
+          })}
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          disabled={!canScrollRight}
+          onClick={() => scrollContainerBy(400)}
+          className={cn("button", "buttonRight", {
+            "button--hidden": !canScrollRight,
+          })}
+        >
+          →
+        </button>
+        {canScrollLeft ? (
+          <div className="shadowWrapper leftShadowWrapper">
+            <div className="shadow leftShadow" />
+          </div>
+        ) : null}
+        {canScrollRight ? (
+          <div className="shadowWrapper rightShadowWrapper">
+            <div className="shadow rightShadow" />
+          </div>
+        ) : null}
+      </div>
       <AddTripButton setModal={setModal} />
     </div>
   );
@@ -43,5 +82,5 @@ export default CityList;
 
 CityList.propTypes = {
   setModal: PropTypes.func.isRequired,
-  setSelectedCity: PropTypes.func.isRequired,
+  children: PropTypes.any.isRequired,
 };

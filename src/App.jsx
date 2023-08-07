@@ -4,10 +4,13 @@ import Modal from "./components/modal/modal";
 import Form from "./components/form/form";
 import { nanoid } from "nanoid";
 
-import CityList from "./components/cityList/CityList";
 import WeekWeather from "./components/weekWeather/WeekWeather";
 import TodayWeather from "./components/todayWeather/TodayWeather";
 import FilterForm from "./components/filterForm/FilterForm";
+import CityList from "./components/cityList/CityList";
+import { useSelector } from "react-redux";
+import { getFilter, getTrips } from "./redux/selectors";
+import CityItem from "./components/cityItem/CityItem";
 
 function App() {
   const [selectedCity, setSelectedCity] = useState({
@@ -19,6 +22,22 @@ function App() {
     endTime: 1698545554550,
   });
 
+  const trips = useSelector(getTrips);
+
+  const statusFilter = useSelector(getFilter);
+
+  const getFilteredTrips = () => {
+    return trips.filter((trip) => {
+      return trip.name.toLowerCase().includes(statusFilter.toLowerCase());
+    });
+  };
+
+  const filterElements = getFilteredTrips();
+
+  const sortedCitysByDeparture = filterElements.sort(
+    (a, b) => a.startTime - b.startTime
+  );
+
   const [modalActive, setModalActive] = useState(false);
 
   return (
@@ -29,8 +48,15 @@ function App() {
         </h1>
 
         <FilterForm />
-
-        <CityList setModal={setModalActive} setSelectedCity={setSelectedCity} />
+        <CityList setModal={setModalActive}>
+          {sortedCitysByDeparture.map((trip) => (
+            <CityItem
+              key={trip.id}
+              trip={trip}
+              setSelectedCity={setSelectedCity}
+            />
+          ))}
+        </CityList>
 
         <WeekWeather selectedCity={selectedCity} />
       </div>

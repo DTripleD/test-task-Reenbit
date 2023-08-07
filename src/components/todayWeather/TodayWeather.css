@@ -14,6 +14,7 @@
 
 .time__list {
   display: flex;
+  gap: 20px;
 }
 
 .temp {
@@ -24,11 +25,17 @@
 
 .time {
   font-weight: bold;
+  font-size: 32px;
 }
 
 .time__text {
+  text-transform: uppercase;
 }
 
 .temp__current {
-  font-size: 40px;
+  font-size: 52px;
+}
+
+.selected__city {
+  font-size: 32px;
 }

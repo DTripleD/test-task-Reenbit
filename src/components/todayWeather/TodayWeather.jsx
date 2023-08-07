@@ -50,14 +50,14 @@ const TodayWeather = ({ selectedCity }) => {
     <div className="today__wrapper">
       {todayWeather && (
         <>
-          <h2>{getWeekDay(currentTime)}</h2>
+          <h2 className="selected__city">{getWeekDay(currentTime)}</h2>
           <div className="temp">
             <WeatherIcon code={todayWeather?.icon} color="white" />
             <p className="temp__current">
               {todayWeather ? Math.round(todayWeather.temp) : 0}°C
             </p>
           </div>
-          <p>{selectedCity.name}</p>
+          <p className="selected__city">{selectedCity.name}</p>
 
           <div>
             <ul className="time__list">

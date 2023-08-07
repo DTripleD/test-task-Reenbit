@@ -1,0 +1,17 @@
+.filter__input {
+  border: none;
+  background-color: #e8e8e8;
+  padding: 15px 30px;
+  border-radius: 5px;
+}
+
+.filter__form {
+  position: relative;
+}
+
+
+.filter__icon {
+  position: absolute;
+  left: 5px;
+  top: 10px
+}
