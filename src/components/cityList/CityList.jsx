@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import "./CityList.css";
 import AddTripButton from "../addTripButton/addtripButton";
 import PropTypes from "prop-types";
+import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 
 const CityList = ({ children, setModal }) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -50,7 +51,7 @@ const CityList = ({ children, setModal }) => {
             "button--hidden": !canScrollLeft,
           })}
         >
-          ←
+          <AiFillStepBackward />
         </button>
         <button
           type="button"
@@ -60,7 +61,7 @@ const CityList = ({ children, setModal }) => {
             "button--hidden": !canScrollRight,
           })}
         >
-          →
+          <AiFillStepForward />
         </button>
         {canScrollLeft ? (
           <div className="shadowWrapper leftShadowWrapper">

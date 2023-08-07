@@ -52,7 +52,11 @@ const Form = ({ setActive }) => {
       <form onSubmit={onFormSubmit}>
         <div className="modal__header">
           <h2>Create trip</h2>
-          <button type="button" onClick={() => setActive(false)}>
+          <button
+            type="button"
+            onClick={() => setActive(false)}
+            className="close__button"
+          >
             x
           </button>
         </div>
@@ -77,6 +81,7 @@ const Form = ({ setActive }) => {
               ))}
             </datalist>
           </label>
+
           <label>
             <div className="input__name">
               <span className="required">*</span>
@@ -104,8 +109,12 @@ const Form = ({ setActive }) => {
           </label>
         </div>
         <div className="modal__footer">
-          <button onClick={() => setActive(false)}>Cancel</button>
-          <button type="submit">Save</button>
+          <button onClick={() => setActive(false)} className="cancel">
+            Cancel
+          </button>
+          <button type="submit" className="save">
+            Save
+          </button>
         </div>
       </form>
     </>

@@ -1,7 +1,20 @@
+import { useEffect } from "react";
 import "./modal.css";
 import PropTypes from "prop-types";
 
 const Modal = ({ active, setActive, children }) => {
+  useEffect(() => {
+    const handleEscape = ({ code }) => {
+      code === `Escape` && setActive(false);
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [setActive]);
+
   return (
     <div
       className={active ? "modal active" : "modal"}

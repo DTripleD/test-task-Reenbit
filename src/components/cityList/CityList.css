@@ -38,9 +38,12 @@
   width: 30px;
   height: 100%;
   overflow: hidden;
-  z-index: 1;
   position: absolute;
   top: 0;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
 }
 
 .leftShadowWrapper {
@@ -55,7 +58,6 @@
   position: absolute;
   box-shadow: 0 0 30px -8px #232628;
   position: absolute;
-  z-index: 1;
   top: 50%;
   right: -25px;
   width: 24px;
@@ -79,6 +81,9 @@
 }
 
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -90,7 +95,6 @@
   box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
   font-size: 1.2rem;
   cursor: pointer;
-  z-index: 2;
   padding: 5px;
 }
 

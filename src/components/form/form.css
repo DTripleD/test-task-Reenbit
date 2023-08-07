@@ -2,9 +2,13 @@
   color: red;
 }
 
+.close__button {
+  background-color: white;
+}
+
 .modal__header {
   display: flex;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #c5bdbd;
   align-items: center;
   justify-content: space-between;
   padding: 15px;
@@ -12,17 +16,18 @@
 
 .modal__footer {
   display: flex;
-  border-top: 1px solid grey;
+  border-top: 1px solid #c5bdbd;
   align-items: center;
   justify-content: end;
   padding: 15px;
+  gap: 20px;
 }
 
 .input__block {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 15px;
+  padding: 50px 30px;
 }
 
 label {
@@ -32,6 +37,7 @@ label {
 
 .input__name {
   display: flex;
+  margin-bottom: 8px;
 }
 
 p {
@@ -43,5 +49,15 @@ h2 {
 }
 
 input {
-  padding: 5px;
+  padding: 10px;
+}
+
+.cancel {
+  background-color: #ffffff;
+  color: #888888;
+}
+
+.save {
+  background-color: #54adff;
+  color: #ffffff;
 }
