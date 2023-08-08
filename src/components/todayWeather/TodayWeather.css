@@ -39,3 +39,19 @@
 .selected__city {
   font-size: 32px;
 }
+
+.user__info {
+  border-radius: 50px;
+  width: 70px;
+  height: 70px;
+}
+
+.user__wrapper {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+
