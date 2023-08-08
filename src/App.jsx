@@ -1,18 +1,18 @@
 import { useState } from "react";
 import "./App.css";
-import Modal from "./components/modal/modal";
-import Form from "./components/form/form";
+import Modal from "./components/Modal/Modal";
+import Form from "./components/Form/Form";
 import { nanoid } from "nanoid";
-
-import WeekWeather from "./components/weekWeather/WeekWeather";
-import TodayWeather from "./components/todayWeather/TodayWeather";
-import FilterForm from "./components/filterForm/FilterForm";
-import CityList from "./components/cityList/CityList";
+import WeekWeather from "./components/WeekWeather/WeekWeather";
+import TodayWeather from "./components/TodayWeather/TodayWeather";
+import FilterForm from "./components/FilterForm/FilterForm";
+import CityList from "./components/CityList/CityList";
 import { useSelector } from "react-redux";
 import { getFilter, getTrips } from "./redux/selectors";
-import CityItem from "./components/cityItem/CityItem";
+import CityItem from "./components/CityItem/CityItem";
 
 function App() {
+  const [modalActive, setModalActive] = useState(false);
   const [selectedCity, setSelectedCity] = useState({
     name: "Athens",
     imageUrl:
@@ -23,7 +23,6 @@ function App() {
   });
 
   const trips = useSelector(getTrips);
-
   const statusFilter = useSelector(getFilter);
 
   const getFilteredTrips = () => {
@@ -32,30 +31,20 @@ function App() {
     });
   };
 
-  const filterElements = getFilteredTrips();
-
-  const sortedCitysByDeparture = filterElements.sort(
-    (a, b) => a.startTime - b.startTime
-  );
-
-  const [modalActive, setModalActive] = useState(false);
-
   return (
     <div className="app__wrapper">
       <div className="main__screen">
-        <h1>
-          <span className="logo__text">Weather</span> Forecast
-        </h1>
-
         <FilterForm />
         <CityList setModal={setModalActive}>
-          {sortedCitysByDeparture.map((trip) => (
-            <CityItem
-              key={trip.id}
-              trip={trip}
-              setSelectedCity={setSelectedCity}
-            />
-          ))}
+          {getFilteredTrips()
+            .sort((a, b) => a.startTime - b.startTime)
+            .map((trip) => (
+              <CityItem
+                key={trip.id}
+                trip={trip}
+                setSelectedCity={setSelectedCity}
+              />
+            ))}
         </CityList>
 
         <WeekWeather selectedCity={selectedCity} />

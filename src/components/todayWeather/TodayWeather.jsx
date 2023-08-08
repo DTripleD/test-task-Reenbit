@@ -1,38 +1,19 @@
 import "./TodayWeather.css";
 import jwt_decode from "jwt-decode";
-
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { getTodayWeather } from "../../services/api";
-import getWeekDay from "../../helpers/getWeekDays";
 import WeatherIcon from "../../img/WeatherIcon";
 import { useDispatch, useSelector } from "react-redux";
-
 import { setUser } from "../../redux/userSlice";
 import { getUser } from "../../redux/selectors";
+import { convertMs, getWeekDay } from "../../helpers";
 
 const TodayWeather = ({ selectedCity }) => {
   const [todayWeather, setTodayWeather] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-  // const [user, setUser] = useState({});
 
   const user = useSelector(getUser);
-
-  function convertMs(time) {
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-
-    const days = addLeadingZero(Math.floor(time / day));
-    const hours = addLeadingZero(Math.floor((time % day) / hour));
-    const minutes = addLeadingZero(Math.floor(((time % day) % hour) / minute));
-    const seconds = addLeadingZero(
-      Math.floor((((time % day) % hour) % minute) / second)
-    );
-
-    return { days, hours, minutes, seconds };
-  }
 
   useEffect(() => {
     getTodayWeather(selectedCity.name).then((data) => {
@@ -49,9 +30,7 @@ const TodayWeather = ({ selectedCity }) => {
   const dispatch = useDispatch();
 
   const handleCallbackResponse = (response) => {
-    console.log("Encoded JWT ID token: " + response.credential);
     const userObject = jwt_decode(response.credential);
-    console.log(userObject);
     dispatch(setUser(userObject));
     document.getElementById("signInDiv").hidden = true;
   };
@@ -76,19 +55,13 @@ const TodayWeather = ({ selectedCity }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function addLeadingZero(value) {
-    return String(value).padStart(2, "0");
-  }
-
   useEffect(() => {
     if (Object.keys(user).length !== 0) {
       document.getElementById("signInDiv").hidden = true;
     }
   }, [user]);
 
-  const timeRemain = selectedCity.startTime - currentTime;
-
-  const timee = convertMs(timeRemain);
+  const time = convertMs(selectedCity.startTime - currentTime);
 
   const handleSignOut = () => {
     dispatch(setUser({}));
@@ -123,19 +96,19 @@ const TodayWeather = ({ selectedCity }) => {
           <div>
             <ul className="time__list">
               <li>
-                <span className="time">{timee.days}</span>
+                <span className="time">{time.days}</span>
                 <p className="time__text">days</p>
               </li>
               <li>
-                <span className="time">{timee.hours}</span>
+                <span className="time">{time.hours}</span>
                 <p className="time__text">hours</p>
               </li>
               <li>
-                <span className="time">{timee.minutes}</span>
+                <span className="time">{time.minutes}</span>
                 <p className="time__text">minutes</p>
               </li>
               <li>
-                <span className="time">{timee.seconds}</span>
+                <span className="time">{time.seconds}</span>
                 <p className="time__text">seconds</p>
               </li>
             </ul>

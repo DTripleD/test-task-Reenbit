@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import debounce from "lodash.debounce";
 import "./CityList.css";
-import AddTripButton from "../addTripButton/addtripButton";
+import AddTripButton from "../AddTripButton/AddTripButton";
 import PropTypes from "prop-types";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 
@@ -21,25 +21,26 @@ const CityList = ({ children, setModal }) => {
     }
   };
 
-  const debounceCheckForScrollPosition = debounce(checkForScrollPosition, 200);
-
   const scrollContainerBy = (distance) =>
     containerRef.current?.scrollBy({ left: distance, behavior: "smooth" });
 
   useEffect(() => {
     const { current } = containerRef;
     checkForScrollPosition();
-    current?.addEventListener("scroll", debounceCheckForScrollPosition);
+    current?.addEventListener("scroll", debounce(checkForScrollPosition, 200));
 
     return () => {
-      current?.removeEventListener("scroll", debounceCheckForScrollPosition);
-      debounceCheckForScrollPosition.cancel();
+      current?.removeEventListener(
+        "scroll",
+        debounce(checkForScrollPosition, 200)
+      );
+      debounce(checkForScrollPosition, 200).cancel();
     };
-  }, [debounceCheckForScrollPosition]);
+  }, []);
 
   return (
     <div className="wrapper">
-      <div className="scrollContainer">
+      <div className="scroll__container">
         <ul className="list" ref={containerRef}>
           {children}
         </ul>
@@ -47,8 +48,8 @@ const CityList = ({ children, setModal }) => {
           type="button"
           disabled={!canScrollLeft}
           onClick={() => scrollContainerBy(-400)}
-          className={cn("button", "buttonLeft", {
-            "button--hidden": !canScrollLeft,
+          className={cn("button", "button__left", {
+            button__hidden: !canScrollLeft,
           })}
         >
           <AiFillStepBackward />
@@ -57,20 +58,20 @@ const CityList = ({ children, setModal }) => {
           type="button"
           disabled={!canScrollRight}
           onClick={() => scrollContainerBy(400)}
-          className={cn("button", "buttonRight", {
-            "button--hidden": !canScrollRight,
+          className={cn("button", "button--right", {
+            button__hidden: !canScrollRight,
           })}
         >
           <AiFillStepForward />
         </button>
         {canScrollLeft ? (
-          <div className="shadowWrapper leftShadowWrapper">
-            <div className="shadow leftShadow" />
+          <div className="shadow__wrapper shadow__wrapper--left">
+            <div className="shadow shadow--left" />
           </div>
         ) : null}
         {canScrollRight ? (
-          <div className="shadowWrapper rightShadowWrapper">
-            <div className="shadow rightShadow" />
+          <div className="shadow__wrapper shadow__wrapper--right">
+            <div className="shadow shadow--right" />
           </div>
         ) : null}
       </div>

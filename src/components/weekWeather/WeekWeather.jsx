@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { getWeekWeather } from "../../services/api";
 import "./WeekWeather.css";
 import PropTypes from "prop-types";
-import { formatRequestDate } from "../../helpers/formatDate";
 import "./WeekWeather.css";
 import getWeekDay from "../../helpers/getWeekDays";
 import WeatherIcon from "../../img/WeatherIcon";
+import { formatDate } from "../../helpers";
 
 const WeekWeather = ({ selectedCity }) => {
   const [weekInfo, setWeekInfo] = useState(null);
@@ -13,8 +13,8 @@ const WeekWeather = ({ selectedCity }) => {
   useEffect(() => {
     getWeekWeather(
       selectedCity.name,
-      formatRequestDate(selectedCity.startTime),
-      formatRequestDate(selectedCity.endTime)
+      formatDate(selectedCity.startTime),
+      formatDate(selectedCity.endTime)
     )
       .then((data) => setWeekInfo(data.days))
       .catch((e) => console.log(e));

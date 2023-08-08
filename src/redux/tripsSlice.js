@@ -17,7 +17,7 @@ const tripsSlice = createSlice({
   name: "trips",
   initialState,
   reducers: {
-    addContact: {
+    addCity: {
       reducer: (state, { payload }) => {
         return [...state, payload];
       },
@@ -39,5 +39,5 @@ const tripsSlice = createSlice({
   },
 });
 
-export const { addContact, deleteContact } = tripsSlice.actions;
+export const { addCity, deleteContact } = tripsSlice.actions;
 export default tripsSlice.reducer;

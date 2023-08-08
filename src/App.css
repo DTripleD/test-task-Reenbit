@@ -47,10 +47,6 @@
   justify-content: space-between;
 }
 
-.logo__text {
-  font-weight: 400;
-}
-
 .main__screen {
   padding: 30px;
   display: flex;

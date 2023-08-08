@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./modal.css";
+import "./Modal.css";
 import PropTypes from "prop-types";
 
 const Modal = ({ active, setActive, children }) => {

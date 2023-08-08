@@ -5,7 +5,7 @@
  * @returns
  */
 
-export const formatRequestDate = (unixMs, format) => {
+const formatDate = (unixMs, format) => {
   const date = new Date(unixMs);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -15,3 +15,5 @@ export const formatRequestDate = (unixMs, format) => {
     ? `${day}.${month}.${year}`
     : `${year}-${month}-${day}`;
 };
+
+export default formatDate;

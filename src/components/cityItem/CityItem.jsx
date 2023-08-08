@@ -1,5 +1,4 @@
-// import { nanoid } from "nanoid";
-import { formatRequestDate } from "../../helpers/formatDate";
+import { formatDate } from "../../helpers";
 import "./CityItem.css";
 import PropTypes from "prop-types";
 
@@ -8,8 +7,6 @@ const CityItem = ({ trip, setSelectedCity }) => {
     <>
       <li
         className="city__item"
-        onFocus={() => console.log("foc")}
-        onBlur={() => console.log("bl")}
         onClick={() =>
           setSelectedCity({
             name: trip.name,
@@ -23,8 +20,8 @@ const CityItem = ({ trip, setSelectedCity }) => {
         <div className="tripInfo__container">
           <h2>{trip.name}</h2>
           <p>
-            {formatRequestDate(trip.startTime, "toPoints")} -
-            {formatRequestDate(trip.endTime, "toPoints")}
+            {formatDate(trip.startTime, "toPoints")} -
+            {formatDate(trip.endTime, "toPoints")}
           </p>
         </div>
       </li>

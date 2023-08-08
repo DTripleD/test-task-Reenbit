@@ -9,9 +9,12 @@
   position: relative;
 }
 
-
 .filter__icon {
   position: absolute;
   left: 5px;
-  top: 10px
+  top: 10px;
+}
+
+.logo__text {
+  font-weight: 400;
 }

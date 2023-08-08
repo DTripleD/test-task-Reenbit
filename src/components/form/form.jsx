@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import "./form.css";
+import "./Form.css";
 import { useEffect, useState } from "react";
 import data from "../../data/data.json";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/tripsSlice";
-import { formatRequestDate } from "../../helpers/formatDate";
+import { addCity } from "../../redux/tripsSlice";
+import { formatDate } from "../../helpers";
 
 const Form = ({ setActive }) => {
   const [city, setCity] = useState("");
@@ -13,7 +13,7 @@ const Form = ({ setActive }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    setCurrentTime(() => formatRequestDate(currentTime));
+    setCurrentTime(() => formatDate(currentTime));
   }, [currentTime]);
 
   const dispatch = useDispatch();
@@ -39,8 +39,12 @@ const Form = ({ setActive }) => {
       return alert("The start and end date should be within the next 15 days");
     }
 
-    dispatch(addContact({ city, startDate, endDate }));
+    dispatch(addCity({ city, startDate, endDate }));
 
+    clearForm();
+  };
+
+  const clearForm = () => {
     setCity("");
     setStartDate("");
     setEndDate("");
@@ -54,7 +58,10 @@ const Form = ({ setActive }) => {
           <h2>Create trip</h2>
           <button
             type="button"
-            onClick={() => setActive(false)}
+            onClick={() => {
+              setActive(false);
+              clearForm();
+            }}
             className="close__button"
           >
             x

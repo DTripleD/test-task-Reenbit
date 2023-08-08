@@ -16,15 +16,20 @@ const FilterForm = () => {
   };
 
   return (
-    <form className="filter__form">
-      <input
-        type="text"
-        placeholder="Search your trip"
-        onChange={updateFilter}
-        className="filter__input"
-      />
-      <AiOutlineSearch className="filter__icon" size="24" />
-    </form>
+    <>
+      <h1>
+        <span className="logo__text">Weather</span> Forecast
+      </h1>
+      <form className="filter__form">
+        <input
+          type="text"
+          placeholder="Search your trip"
+          onChange={updateFilter}
+          className="filter__input"
+        />
+        <AiOutlineSearch className="filter__icon" size="24" />
+      </form>
+    </>
   );
 };
 
