@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 
 const CityItem = ({ trip, setSelectedCity, selectedCity }) => {
-  console.log(selectedCity);
-  console.log(trip);
   return (
     <>
       <li
