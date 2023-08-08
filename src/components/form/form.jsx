@@ -74,19 +74,19 @@ const Form = ({ setActive }) => {
               <span className="required">*</span>
               <p>City</p>
             </div>
-            <input
+            <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              name="city"
-              list="cities"
-              placeholder="Please select a city"
+              className="input"
               required
-            />
-            <datalist id="cities">
-              {data.map((m) => (
-                <option value={m.name} key={m.id} />
+            >
+              <option value="">Please select a city</option>
+              {data.map((c) => (
+                <option key={c.id} value={c.city}>
+                  {c.name}
+                </option>
               ))}
-            </datalist>
+            </select>
           </label>
 
           <label>
@@ -99,6 +99,7 @@ const Form = ({ setActive }) => {
               onChange={(e) => setStartDate(e.target.value)}
               type="date"
               placeholder="Select date"
+              required
             />
           </label>
           <label>
