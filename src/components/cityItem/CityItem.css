@@ -4,14 +4,19 @@
 }
 
 .tripInfo__container {
-  border: 1px lightgray solid;
   border-top: none;
   width: 200px;
   margin: 0;
 }
 
-li {
+.city__item {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  box-sizing: border-box;
+  border: 1px lightgray solid;
+}
+
+.active {
+  border-color: rgb(160, 191, 248);
 }

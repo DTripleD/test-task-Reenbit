@@ -42,6 +42,7 @@ function App() {
               <CityItem
                 key={trip.id}
                 trip={trip}
+                selectedCity={selectedCity}
                 setSelectedCity={setSelectedCity}
               />
             ))}

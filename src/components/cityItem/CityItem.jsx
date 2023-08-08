@@ -1,12 +1,17 @@
 import { formatDate } from "../../helpers";
 import "./CityItem.css";
 import PropTypes from "prop-types";
+import cn from "classnames";
 
-const CityItem = ({ trip, setSelectedCity }) => {
+const CityItem = ({ trip, setSelectedCity, selectedCity }) => {
+  console.log(selectedCity);
+  console.log(trip);
   return (
     <>
       <li
-        className="city__item"
+        className={cn("city__item", {
+          active: selectedCity.name === trip.name,
+        })}
         onClick={() =>
           setSelectedCity({
             name: trip.name,
@@ -34,4 +39,5 @@ export default CityItem;
 CityItem.propTypes = {
   trip: PropTypes.object.isRequired,
   setSelectedCity: PropTypes.func.isRequired,
+  selectedCity: PropTypes.object.isRequired,
 };
